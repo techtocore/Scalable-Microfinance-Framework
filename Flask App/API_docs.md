@@ -16,11 +16,6 @@
   * [Login](#3-login)
   * [Change User Details](#4-change-user-details)
 
-* [Modules/Dashboard](#modulesdashboard)
-
-  * [User's Tasks](#1-user's-tasks)
-  * [Task Results](#2-task-results)
-
 
 --------
 
@@ -82,8 +77,7 @@ URL: http://localhost:5000/addUser
     "name": "Akash Ravi",
     "email": "akashkravi@gmail.com",
     "password": "qwertyuiop",
-    "role": "su",
-    "company": "Cisco",
+    "role": "admin",
     "location": "Bangalore"
 }
 ```
@@ -173,54 +167,6 @@ URL: http://localhost:5000/changeUser
     "name": "Nandan"
 }
 ```
-
-
-
-## Modules/Dashboard
-
-
-
-### 1. User's Tasks
-
-
-
-***Endpoint:***
-
-```bash
-Method: GET
-Type: 
-URL: http://localhost:5000/modules/mytask
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| Authorization | jwt {{jwt}} |  |
-
-
-
-### 2. Task Results
-
-
-
-***Endpoint:***
-
-```bash
-Method: GET
-Type: 
-URL: http://localhost:5000/modules/task/7
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| Authorization | jwt {{jwt}} |  |
-
-
 
 
 ---
