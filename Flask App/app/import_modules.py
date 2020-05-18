@@ -1,6 +1,6 @@
-from app.modules.workflow.dashboard_info import dash_module
+from app.modules.workflow.sender import sender_module
 
 def import_modules(app, mongo):
 
     # workflow
-    dash_module(app, mongo)
+    sender_module(app, mongo)

@@ -62,6 +62,13 @@ def auth(app, mongo):
 
     jwt = JWT(app, authenticate, identity)
 
+    @app.route('/test', methods=['GET'])
+    def test():
+        res = {
+            'message': 'test'
+        }
+        return json.dumps(res, indent=4, sort_keys=True, default=str)
+    
     @app.route('/me')
     @jwt_required()
     def me():
