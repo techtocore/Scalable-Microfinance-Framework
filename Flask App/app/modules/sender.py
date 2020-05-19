@@ -15,18 +15,18 @@ def sender_module(app, mongo):
         try:
             me = '%s' % current_identity
             me = json.loads(me)
-            phone1 = me['phone']
+            phone_s = me['phone']
             req_data = request.get_json()
-            phone2 = req_data.get('receiverPhone')
+            phone_r = req_data.get('receiverPhone')
             json1 = {
-                'phone1': phone1,
-                'phone2': phone2,
+                'phone_s': phone_s,
+                'phone_r': phone_r,
                 'amount': 0
             }
             record = mongo.db.accounts
             f = 1
             for x in record.find():
-                if x['phone1'] == phone1 and x['phone2'] == phone2:
+                if x['phone_s'] == phone_s and x['phone_r'] == phone_r:
                     f = 0
             if f == 0:
                 dictionary = OrderedDict()
@@ -49,19 +49,19 @@ def sender_module(app, mongo):
         try:
             me = '%s' % current_identity
             me = json.loads(me)
-            phone1 = me['phone']
+            phone_s = me['phone']
             req_data = request.get_json()
-            phone2 = req_data.get('receiverPhone')
+            phone_r = req_data.get('receiverPhone')
             amount = req_data.get('amount')
             json1 = {
-                'phone1': phone1,
-                'phone2': phone2,
+                'phone_s': phone_s,
+                'phone_r': phone_r,
                 'amount': amount
             }
             record = mongo.db.accounts
             f = 1
             for x in record.find():
-                if x['phone1'] == phone1 and x['phone2'] == phone2:
+                if x['phone_s'] == phone_s and x['phone_r'] == phone_r:
                     f = 0
                     bal = x['amount']
             if f == 1:
@@ -74,8 +74,8 @@ def sender_module(app, mongo):
             json2 = {}
             json2['$set'] = json1
             query = {
-                'phone1': phone1,
-                'phone2': phone2
+                'phone_s': phone_s,
+                'phone_r': phone_r
             }
             record.update_one(query, json2)
             res = {

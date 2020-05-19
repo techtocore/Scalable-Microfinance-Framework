@@ -15,16 +15,16 @@ def receiver_module(app, mongo):
         try:
             me = '%s' % current_identity
             me = json.loads(me)
-            phone1 = me['phone']
+            phone_r = me['phone']
             req_data = request.get_json()
-            phone3 = req_data.get('merchantPhone')
+            phone_m = req_data.get('merchantPhone')
             amount = req_data.get('amount')
 
             record1 = mongo.db.accounts
             f = 0
             for x in record1.find():
-                if x['phone1'] == phone1:
-                    phone2 =  x['phone2']
+                if x['phone_r'] == phone_r:
+                    phone_s =  x['phone_s']
                     avail = x['amount']
                     if x['amount'] < amount:
                         f = 0
@@ -39,8 +39,8 @@ def receiver_module(app, mongo):
                 return content, status.HTTP_412_PRECONDITION_FAILED
 
             q1 = {
-                'phone1': phone1,
-                'phone2': phone2
+                'phone_r': phone_r,
+                'phone_s': phone_s
             }
             json1 = {}
             json1['amount'] = avail - amount
@@ -51,11 +51,11 @@ def receiver_module(app, mongo):
             record2 = mongo.db.remittance
             m_amt = 0
             for x in record2.find():
-                if x['phone'] == phone3:
+                if x['phone'] == phone_m:
                     m_amt = x['amount']
             m_amt += amount
             q1 = {
-                'phone': phone3
+                'phone': phone_m
             }
             json1 = {}
             json1['amount'] = m_amt
