@@ -63,8 +63,37 @@ def receiver_module(app, mongo):
             json2['$set'] = json1
             record2.update_one(q1, json2)
 
+            record3 = mongo.db.transactions
+            json1 = {
+                'phone_r': phone_r,
+                'phone_s': phone_s,
+                'phone_m': phone_m,
+                'amount': amount
+            }
+            record3.insert_one(json1)
+
             res = {
                 'message': 'Amount Transferred'
+            }
+            return json.dumps(res, indent=4, sort_keys=True, default=str)
+        except:
+            error = {"error": "Please try again"}
+            return json.dumps(error), status.HTTP_500_INTERNAL_SERVER_ERROR
+    
+    @app.route('/amountWithdrawn', methods=['GET'])
+    @jwt_required()
+    def amountWithdrawn():
+        try:
+            me = '%s' % current_identity
+            me = json.loads(me)
+            phone = me['phone']
+            rec = mongo.db.transactions
+            amt = 0
+            for x in rec.find():
+                if x['phone_r'] == phone:
+                    amt += x['amount']
+            res = {
+                'amount': amt
             }
             return json.dumps(res, indent=4, sort_keys=True, default=str)
         except:

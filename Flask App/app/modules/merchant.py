@@ -46,3 +46,23 @@ def merchant_module(app, mongo):
         except:
             error = {"error": "Please try again"}
             return json.dumps(error), status.HTTP_500_INTERNAL_SERVER_ERROR
+
+    @app.route('/amountGot', methods=['GET'])
+    @jwt_required()
+    def amountGot():
+        try:
+            me = '%s' % current_identity
+            me = json.loads(me)
+            phone = me['phone']
+            rec = mongo.db.transactions
+            amt = 0
+            for x in rec.find():
+                if x['phone_m'] == phone:
+                    amt += x['amount']
+            res = {
+                'amount': amt
+            }
+            return json.dumps(res, indent=4, sort_keys=True, default=str)
+        except:
+            error = {"error": "Please try again"}
+            return json.dumps(error), status.HTTP_500_INTERNAL_SERVER_ERROR

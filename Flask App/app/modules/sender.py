@@ -85,3 +85,23 @@ def sender_module(app, mongo):
         except:
             error = {"error": "Please try again"}
             return json.dumps(error), status.HTTP_500_INTERNAL_SERVER_ERROR
+
+    @app.route('/amountSent', methods=['GET'])
+    @jwt_required()
+    def amountSent():
+        try:
+            me = '%s' % current_identity
+            me = json.loads(me)
+            phone = me['phone']
+            rec = mongo.db.transactions
+            amt = 0
+            for x in rec.find():
+                if x['phone_s'] == phone:
+                    amt += x['amount']
+            res = {
+                'amount': amt
+            }
+            return json.dumps(res, indent=4, sort_keys=True, default=str)
+        except:
+            error = {"error": "Please try again"}
+            return json.dumps(error), status.HTTP_500_INTERNAL_SERVER_ERROR
