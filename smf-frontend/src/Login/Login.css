@@ -1,0 +1,23 @@
+.b1 {
+    margin-top: 20px !important;
+}
+
+.loginbtn {
+    padding-top: 40px;
+    text-align: center;
+}
+
+.backicon {
+    color: azure;
+    cursor: pointer;
+    text-align: start;
+    margin-right: 20px;
+}
+
+label, .white {
+    color: azure;
+}
+
+.inline {
+    display: inline;
+}
