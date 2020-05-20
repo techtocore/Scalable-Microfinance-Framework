@@ -1,14 +1,8 @@
-.App {
-  background: #136a8a;
-  background: -webkit-linear-gradient(to right, #267871, #136a8a);
-  background: linear-gradient(to right, #267871, #136a8a);
-  height: 100vh;
-}
-
 .btns {
   padding-top: 100px;
   margin-left: auto;
   margin-right: auto;
+  padding-bottom: 100px;
 }
 
 .card {
