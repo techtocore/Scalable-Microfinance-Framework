@@ -8,11 +8,15 @@ import 'bootstrap';
 import 'bootstrap/dist/js/bootstrap.js';
 import $ from 'jquery';
 import Popper from 'popper.js'
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  // <React.StrictMode>
+  //   <App />
+  // </React.StrictMode>,
+  <BrowserRouter>
+    <App /> {/* The various pages will be displayed by the `Main` component. */}
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

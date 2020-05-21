@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { Link, useHistory, withRouter } from "react-router-dom";
 
 
 class Login extends Component {
@@ -50,6 +51,7 @@ class Login extends Component {
       .then(data => {
         console.log(data);
         localStorage.setItem('jwt', data.access_token);
+        this.props.history.push("/home");
       });
   }
 
@@ -88,6 +90,11 @@ class Login extends Component {
           <br></br>
           <button className="btn btn-primary b1" onClick={this.handleSignupClick}> Signup </button>
         </div>
+        {/* <Link to="/signup">
+          <button variant="outlined">
+            Sign up
+          </button>
+        </Link> */}
       </div>
 
     );
