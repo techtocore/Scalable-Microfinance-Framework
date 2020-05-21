@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from './Navbar'
 import Login from './Login'
 import './App.css';
+import './config'
 
 function App() {
   return (

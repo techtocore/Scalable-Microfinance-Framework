@@ -10,7 +10,17 @@ class Login extends Component {
     this.handleLoginClick = this.handleLoginClick.bind(this);
     this.handleSignupClick = this.handleSignupClick.bind(this);
     this.handleBackClick = this.handleBackClick.bind(this);
-    this.state = { opt: '' };
+    this.login = this.login.bind(this);
+    this.register = this.register.bind(this);
+    this.state = {
+      opt: '',
+      username: '',
+      password: '',
+      phone: '',
+      location: '',
+      role: '',
+      name: ''
+    };
   }
 
   handleLoginClick() {
@@ -25,31 +35,49 @@ class Login extends Component {
     this.setState({ opt: '' });
   }
 
+  login() {
+    let targetUrl = global.config.url + 'auth';
+    let options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        'username': this.state.username,
+        'password': this.state.password
+      })
+    };
+    fetch(targetUrl, options)
+      .then(blob => blob.json())
+      .then(data => {
+        console.log(data);
+        localStorage.setItem('jwt', data.access_token);
+      });
+  }
+
+  register() {
+    let targetUrl = global.config.url + 'addUser';
+    let options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        'name': this.state.name,
+        'password': this.state.password,
+        'role': this.state.role,
+        'phone': this.state.phone,
+        'location': this.state.location
+      })
+    };
+    fetch(targetUrl, options)
+      .then(blob => blob.json())
+      .then(data => {
+        console.log(data);
+        this.setState({ opt: 'login' });
+        this.setState({ username: this.state.phone })
+      });
+  }
+
   render(props) {
     const opt = this.state.opt;
-    let login = (
-      <div>
 
-        <FontAwesomeIcon className="backicon" onClick={this.handleBackClick} icon={faArrowLeft} />
-        <h4 className="white inline">
-          Login
-            </h4>
-        <br></br>
-        <br></br>
-        <form>
-          <div className="form-group">
-            <label htmlFor="phoneno">Phone Number</label>
-            <input type="phone" className="form-control" id="phoneno" aria-describedby="emailHelp" placeholder="Enter Phone Number" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="pw">Password</label>
-            <input type="password" className="form-control" id="pw" placeholder="Password" />
-          </div>
-          <br></br>
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
-      </div>
-    );
     let main = (
       <div>
         <h4 className="white">
@@ -62,6 +90,31 @@ class Login extends Component {
         </div>
       </div>
 
+    );
+
+    let login = (
+      <div>
+        <FontAwesomeIcon className="backicon" onClick={this.handleBackClick} icon={faArrowLeft} />
+        <h4 className="white inline">
+          Login
+            </h4>
+        <br></br>
+        <br></br>
+        <form>
+          <div className="form-group">
+            <label htmlFor="phoneno">Phone Number</label>
+            <input type="phone" className="form-control" id="phoneno" aria-describedby="emailHelp" placeholder="Enter Phone Number"
+              value={this.state.username} onChange={(ev) => this.setState({ username: ev.target.value })} />
+          </div>
+          <div className="form-group">
+            <label htmlFor="pw">Password</label>
+            <input type="password" className="form-control" id="pw" placeholder="Password"
+              value={this.state.password} onChange={(ev) => this.setState({ password: ev.target.value })} />
+          </div>
+          <br></br>
+          <button type="button" className="btn btn-primary" onClick={this.login} >Submit</button>
+        </form>
+      </div>
     );
 
     let signup = (
@@ -77,33 +130,36 @@ class Login extends Component {
           <div className="form-row">
             <div className="form-group col">
               <label htmlFor="name">Full Name</label>
-              <input type="name" className="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name" />
+              <input type="name" className="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name"
+                value={this.state.name} onChange={(ev) => this.setState({ name: ev.target.value })} />
             </div>
             <div className="form-group col">
               <label htmlFor="phoneno">Phone Number</label>
-              <input type="phone" className="form-control" id="phoneno" aria-describedby="emailHelp" placeholder="Enter Phone Number" />
+              <input type="phone" className="form-control" id="phoneno" placeholder="Enter Phone Number" value={this.state.phone} onChange={(ev) => this.setState({ phone: ev.target.value })} />
             </div>
           </div>
 
           <div className="form-group">
             <label htmlFor="pw">Password</label>
-            <input type="password" className="form-control" id="pw" placeholder="Password" />
+            <input type="password" className="form-control" id="pw" placeholder="Password"
+              value={this.state.password} onChange={(ev) => this.setState({ password: ev.target.value })} />
           </div>
           <div className="form-group">
             <label htmlFor="loc">Location</label>
-            <input type="text" className="form-control" id="loc" placeholder="Address" />
+            <input type="text" className="form-control" id="loc" placeholder="Address"
+              value={this.state.location} onChange={(ev) => this.setState({ location: ev.target.value })} />
           </div>
           <div className="form-group">
             <label htmlFor="role">I am a</label>
-            <select class="custom-select">
-              <option selected>Select Role</option>
+            <select className="custom-select" value={this.state.role} onChange={(ev) => this.setState({ role: ev.target.value })}>
+              <option>Select Role</option>
               <option value="sender">Sender</option>
               <option value="receiver">Receiver</option>
               <option value="merchant">Merchant</option>
             </select>
           </div>
           <br></br>
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <button type="button" className="btn btn-primary" onClick={this.register}>Submit</button>
         </form>
       </div>
     );
