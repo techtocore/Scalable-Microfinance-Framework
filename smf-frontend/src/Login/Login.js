@@ -96,6 +96,7 @@ class Login extends Component {
           <button className="btn btn-primary" onClick={this.handleLoginClick}> Login </button>
           <br></br>
           <button className="btn btn-primary b1" onClick={this.handleSignupClick}> Signup </button>
+          <br></br>
         </div>
         {/* <Link to="/signup">
           <button variant="outlined">
@@ -127,6 +128,7 @@ class Login extends Component {
           </div>
           <br></br>
           <button type="button" className="btn btn-primary" onClick={this.login} >Submit</button>
+          <br></br>
         </form>
       </div>
     );
@@ -174,6 +176,7 @@ class Login extends Component {
           </div>
           <br></br>
           <button type="button" className="btn btn-primary" onClick={this.register}>Submit</button>
+          <br></br>
         </form>
       </div>
     );

@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import './Home.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Link, useHistory, withRouter } from "react-router-dom";
 import { publish } from '../PubSub'
 import Transaction from '../Transaction'
+import LinkAC from '../Actions/LinkAC'
 
 class Home extends Component {
   constructor(props) {
@@ -15,6 +14,7 @@ class Home extends Component {
       page: ''
     };
     this.setPagetransact = this.setPage.bind(this, 'transact');
+    this.setPagelinkac = this.setPage.bind(this, 'linkac');
     this.handleBackClick = this.handleBackClick.bind(this);
   }
 
@@ -65,15 +65,16 @@ class Home extends Component {
     let welcome = (
       <div>
         <br></br>
-        <h2 className="white"> Hi {this.state.name} </h2>
+        <h3 className="white"> Hi {this.state.name} </h3>
         <br></br>
       </div>
     )
     if (this.state.role === 'sender' && this.state.navLevel === 1) {
       return (
         <div>
+          {welcome}
           <ul className="list-group">
-            <li className="list-group-item list-group-item-success">Link Receiver</li>
+            <li className="list-group-item list-group-item-success" onClick={this.setPagelinkac}>Link Receiver</li>
             <li className="list-group-item list-group-item-info">Send Money</li>
             <li className="list-group-item list-group-item-success" onClick={this.setPagetransact}>View Transactions</li>
             <li className="list-group-item list-group-item-info">Edit Profile</li>
@@ -96,6 +97,7 @@ class Home extends Component {
     else if (this.state.role === 'merchant' && this.state.navLevel === 1) {
       return (
         <div>
+          {welcome}
           <ul className="list-group">
             <li className="list-group-item list-group-item-success">Link Bank Account</li>
             <li className="list-group-item list-group-item-info" onClick={this.setPagetransact}>View Transactions</li>
@@ -108,6 +110,13 @@ class Home extends Component {
       return (
         <div>
           <Transaction handleBackClick={this.handleBackClick} role={this.state.role} />
+        </div>
+      )
+    }
+    else if (this.state.page === 'linkac' && this.state.navLevel === 2) {
+      return (
+        <div>
+          <LinkAC handleBackClick={this.handleBackClick} />
         </div>
       )
     }

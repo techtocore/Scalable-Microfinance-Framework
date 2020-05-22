@@ -1,0 +1,39 @@
+/*
+ * Navbar css File
+*/
+
+.Navbar {
+    /* propertys here */
+}
+
+.navbar-brand {
+    font-weight: bolder;
+}
+
+.mainicon1 {
+    color: white;
+    margin-right: 2px;
+}
+
+.mainicon2 {
+    color: white;
+    margin-right: 10px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    z-index: 1;
+}
+
+.foot {
+    color: azure;
+}
+
+.nav-item{
+    text-align: right !important;
+}

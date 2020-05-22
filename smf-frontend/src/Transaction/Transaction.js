@@ -36,7 +36,6 @@ class Transaction extends Component {
   render(props) {
     let welcome = (
       <div>
-        <br></br>
         <FontAwesomeIcon className="backicon" onClick={this.props.handleBackClick} icon={faArrowLeft} />
         <h4 className="white inline">
           {this.head()}
