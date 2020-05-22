@@ -3,6 +3,8 @@ import './Home.css';
 import { publish } from '../PubSub'
 import Transaction from '../Transaction'
 import LinkAC from '../Actions/LinkAC'
+import Send from '../Actions/Send'
+import Merchant from '../Actions/Merchant'
 
 class Home extends Component {
   constructor(props) {
@@ -15,6 +17,8 @@ class Home extends Component {
     };
     this.setPagetransact = this.setPage.bind(this, 'transact');
     this.setPagelinkac = this.setPage.bind(this, 'linkac');
+    this.setPagesend = this.setPage.bind(this, 'send');
+    this.setPagebank = this.setPage.bind(this, 'bank');
     this.handleBackClick = this.handleBackClick.bind(this);
   }
 
@@ -75,7 +79,7 @@ class Home extends Component {
           {welcome}
           <ul className="list-group">
             <li className="list-group-item list-group-item-success" onClick={this.setPagelinkac}>Link Receiver</li>
-            <li className="list-group-item list-group-item-info">Send Money</li>
+            <li className="list-group-item list-group-item-info" onClick={this.setPagesend}>Send Money</li>
             <li className="list-group-item list-group-item-success" onClick={this.setPagetransact}>View Transactions</li>
             <li className="list-group-item list-group-item-info">Edit Profile</li>
           </ul>
@@ -99,7 +103,7 @@ class Home extends Component {
         <div>
           {welcome}
           <ul className="list-group">
-            <li className="list-group-item list-group-item-success">Link Bank Account</li>
+            <li className="list-group-item list-group-item-success" onClick={this.setPagebank}>Link Bank Account</li>
             <li className="list-group-item list-group-item-info" onClick={this.setPagetransact}>View Transactions</li>
             <li className="list-group-item list-group-item-success">Edit Profile</li>
           </ul>
@@ -117,6 +121,20 @@ class Home extends Component {
       return (
         <div>
           <LinkAC handleBackClick={this.handleBackClick} />
+        </div>
+      )
+    }
+    else if (this.state.page === 'send' && this.state.navLevel === 2) {
+      return (
+        <div>
+          <Send handleBackClick={this.handleBackClick} />
+        </div>
+      )
+    }
+    else if (this.state.page === 'bank' && this.state.navLevel === 2) {
+      return (
+        <div>
+          <Merchant handleBackClick={this.handleBackClick} />
         </div>
       )
     }
