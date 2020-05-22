@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link, useHistory, withRouter } from "react-router-dom";
+import { publish } from '../PubSub'
 
 class Navbar extends Component {
   constructor(props) {
@@ -33,6 +34,7 @@ class Navbar extends Component {
       .then(data => {
         this.setState({ role: data.role });
         this.setState({ name: data.name });
+        publish('LoginEvent', 'login');
       })
       .catch(error => {
         console.log('error', error); this.props.history.push("/");

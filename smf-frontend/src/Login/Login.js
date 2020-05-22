@@ -3,6 +3,7 @@ import './Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { Link, useHistory, withRouter } from "react-router-dom";
+import { publish } from '../PubSub'
 
 
 class Login extends Component {
@@ -22,6 +23,11 @@ class Login extends Component {
       role: '',
       name: ''
     };
+  }
+
+  componentDidMount() {
+    localStorage.removeItem('jwt');
+    publish('LoginEvent', 'logout');
   }
 
   handleLoginClick() {
@@ -51,6 +57,7 @@ class Login extends Component {
       .then(data => {
         console.log(data);
         localStorage.setItem('jwt', data.access_token);
+        publish('LoginEvent', 'login');
         this.props.history.push("/home");
       });
   }
