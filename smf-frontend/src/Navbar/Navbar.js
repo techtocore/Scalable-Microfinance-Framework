@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './Navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRupeeSign, faHandPointRight } from '@fortawesome/free-solid-svg-icons'
+import { faRupeeSign, faHandPointRight, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { Link, useHistory, withRouter } from "react-router-dom";
 import { Subscriber } from '../PubSub'
 
 class Navbar extends Component {
@@ -28,13 +29,15 @@ class Navbar extends Component {
             <FontAwesomeIcon className="mainicon1" icon={faRupeeSign} />
             <FontAwesomeIcon className="mainicon2" icon={faHandPointRight} />
             {this.props.name} </a>
-          <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <ul className="navbar-nav ml-auto">
+          <div className="ml-auto mr-1">
+            <ul className="navbar-nav">
               <Subscriber topic="LoginEvent">
                 {text => {
                   if (text === 'login') {
                     return (<li className="nav-item">
-                      Logout
+                      <Link to="/">
+                        <FontAwesomeIcon className="mainicon2" icon={faSignOutAlt} />
+                      </Link>
                     </li>)
                   }
                   return (<span className="nav-item"></span>);

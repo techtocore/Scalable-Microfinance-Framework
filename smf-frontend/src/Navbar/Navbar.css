@@ -33,3 +33,7 @@ footer {
 .foot {
     color: azure;
 }
+
+.nav-item{
+    text-align: right !important;
+}

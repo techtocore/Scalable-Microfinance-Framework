@@ -3,14 +3,19 @@ import './Home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link, useHistory, withRouter } from "react-router-dom";
 import { publish } from '../PubSub'
+import Transaction from '../Transaction'
 
-class Navbar extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
       role: '',
-      name: ''
+      name: '',
+      navLevel: 1,
+      page: ''
     };
+    this.setPagetransact = this.setPage.bind(this, 'transact');
+    this.handleBackClick = this.handleBackClick.bind(this);
   }
 
   // componentWillMount(){}
@@ -47,6 +52,15 @@ class Navbar extends Component {
   // componentWillUpdate(){}
   // componentDidUpdate(){}
 
+  setPage(pagename) {
+    this.setState({ page: pagename });
+    this.setState({ navLevel: 2 });
+  }
+
+  handleBackClick() {
+    this.setState({ navLevel: 1 });
+  }
+
   render(props) {
     let welcome = (
       <div>
@@ -55,40 +69,47 @@ class Navbar extends Component {
         <br></br>
       </div>
     )
-    if (this.state.role === 'sender') {
+    if (this.state.role === 'sender' && this.state.navLevel === 1) {
       return (
         <div>
           <ul className="list-group">
             <li className="list-group-item list-group-item-success">Link Receiver</li>
             <li className="list-group-item list-group-item-info">Send Money</li>
-            <li className="list-group-item list-group-item-success">View Transactions</li>
+            <li className="list-group-item list-group-item-success" onClick={this.setPagetransact}>View Transactions</li>
             <li className="list-group-item list-group-item-info">Edit Profile</li>
           </ul>
         </div>
       );
     }
-    else if (this.state.role === 'receiver') {
+    else if (this.state.role === 'receiver' && this.state.navLevel === 1) {
       return (
         <div>
           {welcome}
           <ul className="list-group">
             <li className="list-group-item list-group-item-success">Withdraw Money</li>
-            <li className="list-group-item list-group-item-info">View Transactions</li>
+            <li className="list-group-item list-group-item-info" onClick={this.setPagetransact}>View Transactions</li>
             <li className="list-group-item list-group-item-success">Edit Profile</li>
           </ul>
         </div>
       );
     }
-    else if (this.state.role === 'merchant') {
+    else if (this.state.role === 'merchant' && this.state.navLevel === 1) {
       return (
         <div>
           <ul className="list-group">
             <li className="list-group-item list-group-item-success">Link Bank Account</li>
-            <li className="list-group-item list-group-item-info">View Transactions</li>
+            <li className="list-group-item list-group-item-info" onClick={this.setPagetransact}>View Transactions</li>
             <li className="list-group-item list-group-item-success">Edit Profile</li>
           </ul>
         </div>
       );
+    }
+    else if (this.state.page === 'transact' && this.state.navLevel === 2) {
+      return (
+        <div>
+          <Transaction handleBackClick={this.handleBackClick} role={this.state.role} />
+        </div>
+      )
     }
     else {
       return (
@@ -99,4 +120,4 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+export default Home;

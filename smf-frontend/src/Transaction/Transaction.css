@@ -1,0 +1,11 @@
+.list-group-item {
+    cursor: pointer;
+}
+
+.white {
+    color: azure;
+}
+
+.inline {
+    display: inline;
+}
