@@ -28,12 +28,13 @@ class Recieve extends Component {
     var myHeaders = new Headers();
     let jwt = localStorage.getItem('jwt');
     myHeaders.append("Authorization", "JWT " + jwt);
+    myHeaders.append("Content-Type", "application/json");
     let options = {
       method: 'POST',
       headers: myHeaders,
       body: JSON.stringify({
         'merchantPhone': this.state.merchantPhone,
-        'amount': this.state.amount
+        'amount': parseInt(this.state.amount)
       })
     };
     fetch(targetUrl, options)
