@@ -5,6 +5,8 @@ import Transaction from '../Transaction'
 import LinkAC from '../Actions/LinkAC'
 import Send from '../Actions/Send'
 import Merchant from '../Actions/Merchant'
+import Receive from '../Actions/Receive'
+import Edit from '../Actions/Edit'
 
 class Home extends Component {
   constructor(props) {
@@ -19,6 +21,8 @@ class Home extends Component {
     this.setPagelinkac = this.setPage.bind(this, 'linkac');
     this.setPagesend = this.setPage.bind(this, 'send');
     this.setPagebank = this.setPage.bind(this, 'bank');
+    this.setPagereceive = this.setPage.bind(this, 'receive');
+    this.setPageedit = this.setPage.bind(this, 'edit');
     this.handleBackClick = this.handleBackClick.bind(this);
   }
 
@@ -81,7 +85,7 @@ class Home extends Component {
             <li className="list-group-item list-group-item-success" onClick={this.setPagelinkac}>Link Receiver</li>
             <li className="list-group-item list-group-item-info" onClick={this.setPagesend}>Send Money</li>
             <li className="list-group-item list-group-item-success" onClick={this.setPagetransact}>View Transactions</li>
-            <li className="list-group-item list-group-item-info">Edit Profile</li>
+            <li className="list-group-item list-group-item-info" onClick={this.setPageedit}>Edit Profile</li>
           </ul>
         </div>
       );
@@ -91,9 +95,9 @@ class Home extends Component {
         <div>
           {welcome}
           <ul className="list-group">
-            <li className="list-group-item list-group-item-success">Withdraw Money</li>
+            <li className="list-group-item list-group-item-success" onClick={this.setPagereceive}>Withdraw Money</li>
             <li className="list-group-item list-group-item-info" onClick={this.setPagetransact}>View Transactions</li>
-            <li className="list-group-item list-group-item-success">Edit Profile</li>
+            <li className="list-group-item list-group-item-success" onClick={this.setPageedit}>Edit Profile</li>
           </ul>
         </div>
       );
@@ -105,7 +109,7 @@ class Home extends Component {
           <ul className="list-group">
             <li className="list-group-item list-group-item-success" onClick={this.setPagebank}>Link Bank Account</li>
             <li className="list-group-item list-group-item-info" onClick={this.setPagetransact}>View Transactions</li>
-            <li className="list-group-item list-group-item-success">Edit Profile</li>
+            <li className="list-group-item list-group-item-success" onClick={this.setPageedit}>Edit Profile</li>
           </ul>
         </div>
       );
@@ -135,6 +139,20 @@ class Home extends Component {
       return (
         <div>
           <Merchant handleBackClick={this.handleBackClick} />
+        </div>
+      )
+    }
+    else if (this.state.page === 'receive' && this.state.navLevel === 2) {
+      return (
+        <div>
+          <Receive handleBackClick={this.handleBackClick} />
+        </div>
+      )
+    }
+    else if (this.state.page === 'edit' && this.state.navLevel === 2) {
+      return (
+        <div>
+          <Edit handleBackClick={this.handleBackClick} />
         </div>
       )
     }
