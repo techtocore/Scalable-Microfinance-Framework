@@ -1,3 +1,3 @@
 module.exports = global.config = {
-    url : 'http://localhost:5000/'
+    url: window.location.protocol + '//' + window.location.hostname + ':5000/'
 };

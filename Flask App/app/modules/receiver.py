@@ -24,7 +24,7 @@ def receiver_module(app, mongo):
             f = 0
             for x in record1.find():
                 if x['phone_r'] == phone_r:
-                    phone_s =  x['phone_s']
+                    phone_s = x['phone_s']
                     avail = x['amount']
                     if x['amount'] < amount:
                         f = 0
@@ -47,7 +47,7 @@ def receiver_module(app, mongo):
             json2 = {}
             json2['$set'] = json1
             record1.update_one(q1, json2)
-            
+
             record2 = mongo.db.remittance
             m_amt = 0
             for x in record2.find():
@@ -83,7 +83,7 @@ def receiver_module(app, mongo):
         except:
             error = {"error": "Please try again"}
             return json.dumps(error), status.HTTP_500_INTERNAL_SERVER_ERROR
-    
+
     @app.route('/directpay', methods=['POST'])
     @jwt_required()
     def dpay():
@@ -94,7 +94,7 @@ def receiver_module(app, mongo):
             req_data = request.get_json()
             phone_m = req_data.get('merchantPhone')
             amount = req_data.get('amount')
-            
+
             record2 = mongo.db.remittance
             m_amt = 0
             for x in record2.find():
@@ -130,7 +130,7 @@ def receiver_module(app, mongo):
         except:
             error = {"error": "Please try again"}
             return json.dumps(error), status.HTTP_500_INTERNAL_SERVER_ERROR
-    
+
     @app.route('/amountWithdrawn', methods=['GET'])
     @jwt_required()
     def amountWithdrawn():
@@ -149,9 +149,16 @@ def receiver_module(app, mongo):
                         'amount': x['amount']
                     })
                     amt += x['amount']
+            rem = 0
+            record1 = mongo.db.accounts
+            f = 0
+            for x in record1.find():
+                if x['phone_r'] == phone:
+                    rem += x['amount']
             res = {
                 'amount': amt,
-                'logs': logs
+                'logs': logs,
+                'rem': rem
             }
             return json.dumps(res, indent=4, sort_keys=True, default=str)
         except:

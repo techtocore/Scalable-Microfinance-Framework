@@ -10,7 +10,8 @@ class Transaction extends Component {
     super(props);
     this.state = {
       amount: 0,
-      logs: []
+      logs: [],
+      rem: 0
     };
   }
 
@@ -41,6 +42,9 @@ class Transaction extends Component {
       .then(data => {
         this.setState({ amount: data.amount });
         this.setState({ logs: data.logs });
+        if(data.rem) {
+          this.setState({ rem: data.rem });
+        }
         // console.log(this.state.logs);
       })
       .catch(error => {
@@ -84,6 +88,17 @@ class Transaction extends Component {
     }
   }
 
+  rem() {
+    if(this.state.rem > 0) {
+      return (<div className="white">
+                <br></br>
+                Amount Remaining: <FontAwesomeIcon className="rsicon" icon={faRupeeSign} /> {this.state.rem}
+              </div>
+              )
+    }
+    return (<span></span>)
+  }
+
   render(props) {
     let welcome = (
       <div>
@@ -97,8 +112,9 @@ class Transaction extends Component {
     return (
       <div>
         {welcome}
+        {this.rem()}
         <br></br>
-        <table className="table table-dark">
+        <table className="table table-responsive table-dark">
         <thead>
           <tr>
             <th scope="col">#</th>

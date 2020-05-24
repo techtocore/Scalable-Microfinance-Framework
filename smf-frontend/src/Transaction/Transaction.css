@@ -14,3 +14,8 @@
     margin-left: 10px;
     margin-right: 10px;
 }
+
+.table {
+    max-width: 80vw !important;
+    overflow-x: scroll;
+}
