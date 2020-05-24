@@ -140,11 +140,18 @@ def receiver_module(app, mongo):
             phone = me['phone']
             rec = mongo.db.transactions
             amt = 0
+            logs = []
             for x in rec.find():
                 if x['phone_r'] == phone:
+                    logs.append({
+                        'timestamp': x['timestamp'],
+                        'phone_m': x['phone_m'],
+                        'amount': x['amount']
+                    })
                     amt += x['amount']
             res = {
-                'amount': amt
+                'amount': amt,
+                'logs': logs
             }
             return json.dumps(res, indent=4, sort_keys=True, default=str)
         except:

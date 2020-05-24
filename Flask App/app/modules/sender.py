@@ -95,11 +95,18 @@ def sender_module(app, mongo):
             phone = me['phone']
             rec = mongo.db.transactions
             amt = 0
+            logs = []
             for x in rec.find():
                 if x['phone_s'] == phone:
+                    logs.append({
+                        'timestamp': x['timestamp'],
+                        'phone_r': x['phone_r'],
+                        'amount': x['amount']
+                    })
                     amt += x['amount']
             res = {
-                'amount': amt
+                'amount': amt,
+                'logs': logs
             }
             return json.dumps(res, indent=4, sort_keys=True, default=str)
         except:

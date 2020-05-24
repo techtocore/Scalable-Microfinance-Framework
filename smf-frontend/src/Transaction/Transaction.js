@@ -9,12 +9,13 @@ class Transaction extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      amount: 0
+      amount: 0,
+      logs: []
     };
   }
 
   // componentWillMount(){}
-  componentDidMount() {
+  componentWillMount() {
     let targetUrl = '';
     if (this.props.role === 'sender')
       targetUrl = global.config.url + 'amountSent';
@@ -39,6 +40,8 @@ class Transaction extends Component {
       })
       .then(data => {
         this.setState({ amount: data.amount });
+        this.setState({ logs: data.logs });
+        // console.log(this.state.logs);
       })
       .catch(error => {
         console.log('error', error);
@@ -61,6 +64,26 @@ class Transaction extends Component {
     }
   }
 
+  theadtxt() {
+    if (this.props.role === 'sender') {
+      return (<span> Receiver's Phone No </span>);
+    } else if (this.props.role === 'merchant') {
+      return (<span> Receiver's Phone No </span>);
+    } else {
+      return (<span> Merchant's Phone No </span>);
+    }
+  }
+
+  getph(obj) {
+    if (this.props.role === 'sender') {
+      return (<span> {obj.phone_r} </span>);
+    } else if (this.props.role === 'merchant') {
+      return (<span> {obj.phone_r} </span>);
+    } else {
+      return (<span> {obj.phone_m} </span>);
+    }
+  }
+
   render(props) {
     let welcome = (
       <div>
@@ -74,6 +97,27 @@ class Transaction extends Component {
     return (
       <div>
         {welcome}
+        <br></br>
+        <table className="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Timestamp</th>
+            <th scope="col">{this.theadtxt()}</th>
+            <th scope="col">Amount</th>
+          </tr>
+        </thead>
+        {this.state.logs.map(( listValue, index ) => {
+          return (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{listValue.timestamp}</td>
+              <td>{this.getph(listValue)}</td>
+              <td>{listValue.amount}</td>
+            </tr>
+          );
+        })}
+      </table>
       </div>
     )
 
