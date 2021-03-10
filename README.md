@@ -1,5 +1,6 @@
 # Scalable-Microfinance-Framework
 Submission for Microsoft Azure Hackathon
+https://docs.google.com/presentation/d/1nHTDxgMsLvmBz31AdvJcuiuxUFQ6Pi5prMYAWljyCzA/edit?usp=sharing
 
 ## Instructions
 
@@ -12,5 +13,3 @@ Submission for Microsoft Azure Hackathon
 
 - Name: Akash Ravi
 - Email: akashkravi@gmail.com
-- Designation: Software Engineer
-- Company: Cisco
